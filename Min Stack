@@ -1,0 +1,75 @@
+class MinStack {
+    Stack<Integer> s = new Stack();
+    Stack<Integer> minS = new Stack();
+    int minEle = Integer.MAX_VALUE;
+    /** initialize your data structure here. */
+    public MinStack() {
+        
+    }
+    
+    public void push(int x) {
+        if (s.empty()){
+            s.push(x);
+            minS.push(x);
+            minEle = x;
+        }
+        else{
+            s.push(x);
+            if (minEle >= x){
+                minS.push(x);
+                minEle = x;
+            }
+        }
+    }
+    
+    public void pop() {
+        if(!s.empty())
+        {
+            int x = s.pop();
+            if (!minS.empty() && minS.peek() == x)
+            {
+                minS.pop();
+                if(!minS.empty())
+                    minEle = minS.peek();
+                else
+                    minEle = Integer.MAX_VALUE;
+            }
+        }
+        /*int a = s.peek();
+        if (!s.empty() && !minS.empty() && a == minS.peek()){
+            s.pop();
+            minS.pop();
+            minEle = minS.peek();
+            System.out.println("pop");
+            System.out.println(minS.peek());
+        }
+        else if (!s.empty()){
+            s.pop();
+        }*/
+    }
+    
+    public int top() {
+        int top=0;
+        if (!s.empty()){
+            top =  s.peek();
+        }
+        return top;
+    }
+    
+    public int getMin() {
+        int min = 0;
+        if (!minS.empty()){
+            min = minS.peek();
+        }
+        return min;
+    }
+}
+
+/**
+ * Your MinStack object will be instantiated and called as such:
+ * MinStack obj = new MinStack();
+ * obj.push(x);
+ * obj.pop();
+ * int param_3 = obj.top();
+ * int param_4 = obj.getMin();
+ */
